@@ -1,4 +1,5 @@
 CREATE TABLE car_message(
+     id INT PRIMARY KEY AUTO_INCREMENT, 
      offenceNo VARCHAR(255) PRIMARY KEY COMMENT '违章单号',
      offenceType VARCHAR(255) COMMENT '违章类型',
      offenceName VARCHAR(255) COMMENT '违章名称',
