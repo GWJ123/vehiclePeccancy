@@ -1,7 +1,7 @@
 CREATE TABLE vehicle_use(
  id  INT PRIMARY KEY AUTO_INCREMENT,
  vehicle_No INT COMMENT '车牌号',
-vestablish VARCHAR(255) COMMENT "使用时间",
+usr VARCHAR(255) COMMENT "使用时间",
 back VARCHAR(255) COMMENT "返回时间",
 purpose VARCHAR(255) COMMENT "用途",
  driverId INT COMMENT "使用人ID"
