@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.driver.dao.VehicleUseMapper" >
+  <resultMap id="BaseResultMap" type="com.driver.dao.VehicleUse" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="vehicle_No" property="vehicleNo" jdbcType="INTEGER" />
+    <result column="usr" property="usr" jdbcType="VARCHAR" />
+    <result column="back" property="back" jdbcType="VARCHAR" />
+    <result column="purpose" property="purpose" jdbcType="VARCHAR" />
+    <result column="driverId" property="driverid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, vehicle_No, usr, back, purpose, driverId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.driver.dao.VehicleUseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vehicle_use
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from vehicle_use
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from vehicle_use
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.driver.dao.VehicleUseExample" >
+    delete from vehicle_use
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.driver.dao.VehicleUse" >
+    insert into vehicle_use (id, vehicle_No, usr, 
+      back, purpose, driverId
+      )
+    values (#{id,jdbcType=INTEGER}, #{vehicleNo,jdbcType=INTEGER}, #{usr,jdbcType=VARCHAR}, 
+      #{back,jdbcType=VARCHAR}, #{purpose,jdbcType=VARCHAR}, #{driverid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.driver.dao.VehicleUse" >
+    insert into vehicle_use
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vehicleNo != null" >
+        vehicle_No,
+      </if>
+      <if test="usr != null" >
+        usr,
+      </if>
+      <if test="back != null" >
+        back,
+      </if>
+      <if test="purpose != null" >
+        purpose,
+      </if>
+      <if test="driverid != null" >
+        driverId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleNo != null" >
+        #{vehicleNo,jdbcType=INTEGER},
+      </if>
+      <if test="usr != null" >
+        #{usr,jdbcType=VARCHAR},
+      </if>
+      <if test="back != null" >
+        #{back,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="driverid != null" >
+        #{driverid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.driver.dao.VehicleUseExample" resultType="java.lang.Integer" >
+    select count(*) from vehicle_use
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vehicle_use
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.vehicleNo != null" >
+        vehicle_No = #{record.vehicleNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.usr != null" >
+        usr = #{record.usr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.back != null" >
+        back = #{record.back,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purpose != null" >
+        purpose = #{record.purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.driverid != null" >
+        driverId = #{record.driverid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vehicle_use
+    set id = #{record.id,jdbcType=INTEGER},
+      vehicle_No = #{record.vehicleNo,jdbcType=INTEGER},
+      usr = #{record.usr,jdbcType=VARCHAR},
+      back = #{record.back,jdbcType=VARCHAR},
+      purpose = #{record.purpose,jdbcType=VARCHAR},
+      driverId = #{record.driverid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.driver.dao.VehicleUse" >
+    update vehicle_use
+    <set >
+      <if test="vehicleNo != null" >
+        vehicle_No = #{vehicleNo,jdbcType=INTEGER},
+      </if>
+      <if test="usr != null" >
+        usr = #{usr,jdbcType=VARCHAR},
+      </if>
+      <if test="back != null" >
+        back = #{back,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="driverid != null" >
+        driverId = #{driverid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.driver.dao.VehicleUse" >
+    update vehicle_use
+    set vehicle_No = #{vehicleNo,jdbcType=INTEGER},
+      usr = #{usr,jdbcType=VARCHAR},
+      back = #{back,jdbcType=VARCHAR},
+      purpose = #{purpose,jdbcType=VARCHAR},
+      driverId = #{driverid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.driver.dao.DutyMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.driver.dao.DutyMessage" >
+    <id column="dutyNo" property="dutyno" jdbcType="VARCHAR" />
+    <result column="dutyType" property="dutytype" jdbcType="VARCHAR" />
+    <result column="dutyName" property="dutyname" jdbcType="VARCHAR" />
+    <result column="dutyTel" property="dutytel" jdbcType="VARCHAR" />
+    <result column="dutyCity" property="dutycity" jdbcType="VARCHAR" />
+    <result column="dutyReason" property="dutyreason" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    dutyNo, dutyType, dutyName, dutyTel, dutyCity, dutyReason
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.driver.dao.DutyMessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from duty_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from duty_message
+    where dutyNo = #{dutyno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from duty_message
+    where dutyNo = #{dutyno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.driver.dao.DutyMessageExample" >
+    delete from duty_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.driver.dao.DutyMessage" >
+    insert into duty_message (dutyNo, dutyType, dutyName, 
+      dutyTel, dutyCity, dutyReason
+      )
+    values (#{dutyno,jdbcType=VARCHAR}, #{dutytype,jdbcType=VARCHAR}, #{dutyname,jdbcType=VARCHAR}, 
+      #{dutytel,jdbcType=VARCHAR}, #{dutycity,jdbcType=VARCHAR}, #{dutyreason,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.driver.dao.DutyMessage" >
+    insert into duty_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dutyno != null" >
+        dutyNo,
+      </if>
+      <if test="dutytype != null" >
+        dutyType,
+      </if>
+      <if test="dutyname != null" >
+        dutyName,
+      </if>
+      <if test="dutytel != null" >
+        dutyTel,
+      </if>
+      <if test="dutycity != null" >
+        dutyCity,
+      </if>
+      <if test="dutyreason != null" >
+        dutyReason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dutyno != null" >
+        #{dutyno,jdbcType=VARCHAR},
+      </if>
+      <if test="dutytype != null" >
+        #{dutytype,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyname != null" >
+        #{dutyname,jdbcType=VARCHAR},
+      </if>
+      <if test="dutytel != null" >
+        #{dutytel,jdbcType=VARCHAR},
+      </if>
+      <if test="dutycity != null" >
+        #{dutycity,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyreason != null" >
+        #{dutyreason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.driver.dao.DutyMessageExample" resultType="java.lang.Integer" >
+    select count(*) from duty_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update duty_message
+    <set >
+      <if test="record.dutyno != null" >
+        dutyNo = #{record.dutyno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dutytype != null" >
+        dutyType = #{record.dutytype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dutyname != null" >
+        dutyName = #{record.dutyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dutytel != null" >
+        dutyTel = #{record.dutytel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dutycity != null" >
+        dutyCity = #{record.dutycity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dutyreason != null" >
+        dutyReason = #{record.dutyreason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update duty_message
+    set dutyNo = #{record.dutyno,jdbcType=VARCHAR},
+      dutyType = #{record.dutytype,jdbcType=VARCHAR},
+      dutyName = #{record.dutyname,jdbcType=VARCHAR},
+      dutyTel = #{record.dutytel,jdbcType=VARCHAR},
+      dutyCity = #{record.dutycity,jdbcType=VARCHAR},
+      dutyReason = #{record.dutyreason,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.driver.dao.DutyMessage" >
+    update duty_message
+    <set >
+      <if test="dutytype != null" >
+        dutyType = #{dutytype,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyname != null" >
+        dutyName = #{dutyname,jdbcType=VARCHAR},
+      </if>
+      <if test="dutytel != null" >
+        dutyTel = #{dutytel,jdbcType=VARCHAR},
+      </if>
+      <if test="dutycity != null" >
+        dutyCity = #{dutycity,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyreason != null" >
+        dutyReason = #{dutyreason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dutyNo = #{dutyno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.driver.dao.DutyMessage" >
+    update duty_message
+    set dutyType = #{dutytype,jdbcType=VARCHAR},
+      dutyName = #{dutyname,jdbcType=VARCHAR},
+      dutyTel = #{dutytel,jdbcType=VARCHAR},
+      dutyCity = #{dutycity,jdbcType=VARCHAR},
+      dutyReason = #{dutyreason,jdbcType=VARCHAR}
+    where dutyNo = #{dutyno,jdbcType=VARCHAR}
+  </update>
+</mapper>

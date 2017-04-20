@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.driver.dao.HandleMapper" >
+  <resultMap id="BaseResultMap" type="com.driver.dao.Handle" >
+    <id column="handle_id" property="handleId" jdbcType="INTEGER" />
+    <result column="handle_time" property="handleTime" jdbcType="TIMESTAMP" />
+    <result column="handle_man_type" property="handleManType" jdbcType="VARCHAR" />
+    <result column="handle_man_name" property="handleManName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    handle_id, handle_time, handle_man_type, handle_man_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.driver.dao.HandleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from handle
+    where handle_id = #{handleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from handle
+    where handle_id = #{handleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.driver.dao.HandleExample" >
+    delete from handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.driver.dao.Handle" >
+    insert into handle (handle_id, handle_time, handle_man_type, 
+      handle_man_name)
+    values (#{handleId,jdbcType=INTEGER}, #{handleTime,jdbcType=TIMESTAMP}, #{handleManType,jdbcType=VARCHAR}, 
+      #{handleManName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.driver.dao.Handle" >
+    insert into handle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="handleId != null" >
+        handle_id,
+      </if>
+      <if test="handleTime != null" >
+        handle_time,
+      </if>
+      <if test="handleManType != null" >
+        handle_man_type,
+      </if>
+      <if test="handleManName != null" >
+        handle_man_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="handleId != null" >
+        #{handleId,jdbcType=INTEGER},
+      </if>
+      <if test="handleTime != null" >
+        #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="handleManType != null" >
+        #{handleManType,jdbcType=VARCHAR},
+      </if>
+      <if test="handleManName != null" >
+        #{handleManName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.driver.dao.HandleExample" resultType="java.lang.Integer" >
+    select count(*) from handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update handle
+    <set >
+      <if test="record.handleId != null" >
+        handle_id = #{record.handleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.handleTime != null" >
+        handle_time = #{record.handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.handleManType != null" >
+        handle_man_type = #{record.handleManType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.handleManName != null" >
+        handle_man_name = #{record.handleManName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update handle
+    set handle_id = #{record.handleId,jdbcType=INTEGER},
+      handle_time = #{record.handleTime,jdbcType=TIMESTAMP},
+      handle_man_type = #{record.handleManType,jdbcType=VARCHAR},
+      handle_man_name = #{record.handleManName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.driver.dao.Handle" >
+    update handle
+    <set >
+      <if test="handleTime != null" >
+        handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="handleManType != null" >
+        handle_man_type = #{handleManType,jdbcType=VARCHAR},
+      </if>
+      <if test="handleManName != null" >
+        handle_man_name = #{handleManName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where handle_id = #{handleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.driver.dao.Handle" >
+    update handle
+    set handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      handle_man_type = #{handleManType,jdbcType=VARCHAR},
+      handle_man_name = #{handleManName,jdbcType=VARCHAR}
+    where handle_id = #{handleId,jdbcType=INTEGER}
+  </update>
+</mapper>

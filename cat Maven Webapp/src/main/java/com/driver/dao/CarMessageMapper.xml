@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.driver.dao.CarMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.driver.dao.CarMessage" >
+    <id column="offenceNo" property="offenceno" jdbcType="VARCHAR" />
+    <result column="offenceType" property="offencetype" jdbcType="VARCHAR" />
+    <result column="offenceName" property="offencename" jdbcType="VARCHAR" />
+    <result column="offenceCity" property="offencecity" jdbcType="VARCHAR" />
+    <result column="offenceSite" property="offencesite" jdbcType="VARCHAR" />
+    <result column="offenceTime" property="offencetime" jdbcType="VARCHAR" />
+    <result column="offenceState" property="offencestate" jdbcType="VARCHAR" />
+    <result column="offenceOverdue" property="offenceoverdue" jdbcType="INTEGER" />
+    <result column="penaltyPoint" property="penaltypoint" jdbcType="VARCHAR" />
+    <result column="penaltyFee" property="penaltyfee" jdbcType="VARCHAR" />
+    <result column="vehicleNo" property="vehicleno" jdbcType="VARCHAR" />
+    <result column="provider" property="provider" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    offenceNo, offenceType, offenceName, offenceCity, offenceSite, offenceTime, offenceState, 
+    offenceOverdue, penaltyPoint, penaltyFee, vehicleNo, provider
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.driver.dao.CarMessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from car_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from car_message
+    where offenceNo = #{offenceno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from car_message
+    where offenceNo = #{offenceno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.driver.dao.CarMessageExample" >
+    delete from car_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.driver.dao.CarMessage" >
+    insert into car_message (offenceNo, offenceType, offenceName, 
+      offenceCity, offenceSite, offenceTime, 
+      offenceState, offenceOverdue, penaltyPoint, 
+      penaltyFee, vehicleNo, provider
+      )
+    values (#{offenceno,jdbcType=VARCHAR}, #{offencetype,jdbcType=VARCHAR}, #{offencename,jdbcType=VARCHAR}, 
+      #{offencecity,jdbcType=VARCHAR}, #{offencesite,jdbcType=VARCHAR}, #{offencetime,jdbcType=VARCHAR}, 
+      #{offencestate,jdbcType=VARCHAR}, #{offenceoverdue,jdbcType=INTEGER}, #{penaltypoint,jdbcType=VARCHAR}, 
+      #{penaltyfee,jdbcType=VARCHAR}, #{vehicleno,jdbcType=VARCHAR}, #{provider,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.driver.dao.CarMessage" >
+    insert into car_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="offenceno != null" >
+        offenceNo,
+      </if>
+      <if test="offencetype != null" >
+        offenceType,
+      </if>
+      <if test="offencename != null" >
+        offenceName,
+      </if>
+      <if test="offencecity != null" >
+        offenceCity,
+      </if>
+      <if test="offencesite != null" >
+        offenceSite,
+      </if>
+      <if test="offencetime != null" >
+        offenceTime,
+      </if>
+      <if test="offencestate != null" >
+        offenceState,
+      </if>
+      <if test="offenceoverdue != null" >
+        offenceOverdue,
+      </if>
+      <if test="penaltypoint != null" >
+        penaltyPoint,
+      </if>
+      <if test="penaltyfee != null" >
+        penaltyFee,
+      </if>
+      <if test="vehicleno != null" >
+        vehicleNo,
+      </if>
+      <if test="provider != null" >
+        provider,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="offenceno != null" >
+        #{offenceno,jdbcType=VARCHAR},
+      </if>
+      <if test="offencetype != null" >
+        #{offencetype,jdbcType=VARCHAR},
+      </if>
+      <if test="offencename != null" >
+        #{offencename,jdbcType=VARCHAR},
+      </if>
+      <if test="offencecity != null" >
+        #{offencecity,jdbcType=VARCHAR},
+      </if>
+      <if test="offencesite != null" >
+        #{offencesite,jdbcType=VARCHAR},
+      </if>
+      <if test="offencetime != null" >
+        #{offencetime,jdbcType=VARCHAR},
+      </if>
+      <if test="offencestate != null" >
+        #{offencestate,jdbcType=VARCHAR},
+      </if>
+      <if test="offenceoverdue != null" >
+        #{offenceoverdue,jdbcType=INTEGER},
+      </if>
+      <if test="penaltypoint != null" >
+        #{penaltypoint,jdbcType=VARCHAR},
+      </if>
+      <if test="penaltyfee != null" >
+        #{penaltyfee,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleno != null" >
+        #{vehicleno,jdbcType=VARCHAR},
+      </if>
+      <if test="provider != null" >
+        #{provider,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.driver.dao.CarMessageExample" resultType="java.lang.Integer" >
+    select count(*) from car_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update car_message
+    <set >
+      <if test="record.offenceno != null" >
+        offenceNo = #{record.offenceno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.offencetype != null" >
+        offenceType = #{record.offencetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.offencename != null" >
+        offenceName = #{record.offencename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.offencecity != null" >
+        offenceCity = #{record.offencecity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.offencesite != null" >
+        offenceSite = #{record.offencesite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.offencetime != null" >
+        offenceTime = #{record.offencetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.offencestate != null" >
+        offenceState = #{record.offencestate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.offenceoverdue != null" >
+        offenceOverdue = #{record.offenceoverdue,jdbcType=INTEGER},
+      </if>
+      <if test="record.penaltypoint != null" >
+        penaltyPoint = #{record.penaltypoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.penaltyfee != null" >
+        penaltyFee = #{record.penaltyfee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleno != null" >
+        vehicleNo = #{record.vehicleno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provider != null" >
+        provider = #{record.provider,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update car_message
+    set offenceNo = #{record.offenceno,jdbcType=VARCHAR},
+      offenceType = #{record.offencetype,jdbcType=VARCHAR},
+      offenceName = #{record.offencename,jdbcType=VARCHAR},
+      offenceCity = #{record.offencecity,jdbcType=VARCHAR},
+      offenceSite = #{record.offencesite,jdbcType=VARCHAR},
+      offenceTime = #{record.offencetime,jdbcType=VARCHAR},
+      offenceState = #{record.offencestate,jdbcType=VARCHAR},
+      offenceOverdue = #{record.offenceoverdue,jdbcType=INTEGER},
+      penaltyPoint = #{record.penaltypoint,jdbcType=VARCHAR},
+      penaltyFee = #{record.penaltyfee,jdbcType=VARCHAR},
+      vehicleNo = #{record.vehicleno,jdbcType=VARCHAR},
+      provider = #{record.provider,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.driver.dao.CarMessage" >
+    update car_message
+    <set >
+      <if test="offencetype != null" >
+        offenceType = #{offencetype,jdbcType=VARCHAR},
+      </if>
+      <if test="offencename != null" >
+        offenceName = #{offencename,jdbcType=VARCHAR},
+      </if>
+      <if test="offencecity != null" >
+        offenceCity = #{offencecity,jdbcType=VARCHAR},
+      </if>
+      <if test="offencesite != null" >
+        offenceSite = #{offencesite,jdbcType=VARCHAR},
+      </if>
+      <if test="offencetime != null" >
+        offenceTime = #{offencetime,jdbcType=VARCHAR},
+      </if>
+      <if test="offencestate != null" >
+        offenceState = #{offencestate,jdbcType=VARCHAR},
+      </if>
+      <if test="offenceoverdue != null" >
+        offenceOverdue = #{offenceoverdue,jdbcType=INTEGER},
+      </if>
+      <if test="penaltypoint != null" >
+        penaltyPoint = #{penaltypoint,jdbcType=VARCHAR},
+      </if>
+      <if test="penaltyfee != null" >
+        penaltyFee = #{penaltyfee,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleno != null" >
+        vehicleNo = #{vehicleno,jdbcType=VARCHAR},
+      </if>
+      <if test="provider != null" >
+        provider = #{provider,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where offenceNo = #{offenceno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.driver.dao.CarMessage" >
+    update car_message
+    set offenceType = #{offencetype,jdbcType=VARCHAR},
+      offenceName = #{offencename,jdbcType=VARCHAR},
+      offenceCity = #{offencecity,jdbcType=VARCHAR},
+      offenceSite = #{offencesite,jdbcType=VARCHAR},
+      offenceTime = #{offencetime,jdbcType=VARCHAR},
+      offenceState = #{offencestate,jdbcType=VARCHAR},
+      offenceOverdue = #{offenceoverdue,jdbcType=INTEGER},
+      penaltyPoint = #{penaltypoint,jdbcType=VARCHAR},
+      penaltyFee = #{penaltyfee,jdbcType=VARCHAR},
+      vehicleNo = #{vehicleno,jdbcType=VARCHAR},
+      provider = #{provider,jdbcType=VARCHAR}
+    where offenceNo = #{offenceno,jdbcType=VARCHAR}
+  </update>
+</mapper>

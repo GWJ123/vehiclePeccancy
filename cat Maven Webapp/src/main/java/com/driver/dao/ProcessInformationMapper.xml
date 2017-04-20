@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.driver.dao.ProcessInformationMapper" >
+  <resultMap id="BaseResultMap" type="com.driver.dao.ProcessInformation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="processor_type" property="processorType" jdbcType="VARCHAR" />
+    <result column="processor_id" property="processorId" jdbcType="VARCHAR" />
+    <result column="processor_name" property="processorName" jdbcType="VARCHAR" />
+    <result column="processor_phone" property="processorPhone" jdbcType="VARCHAR" />
+    <result column="serve_city" property="serveCity" jdbcType="VARCHAR" />
+    <result column="peccancy_city" property="peccancyCity" jdbcType="VARCHAR" />
+    <result column="check_status" property="checkStatus" jdbcType="VARCHAR" />
+    <result column="check_time" property="checkTime" jdbcType="VARCHAR" />
+    <result column="check_message" property="checkMessage" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, processor_type, processor_id, processor_name, processor_phone, serve_city, peccancy_city, 
+    check_status, check_time, check_message
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.driver.dao.ProcessInformationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from process_information
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from process_information
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from process_information
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.driver.dao.ProcessInformationExample" >
+    delete from process_information
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.driver.dao.ProcessInformation" >
+    insert into process_information (id, processor_type, processor_id, 
+      processor_name, processor_phone, serve_city, 
+      peccancy_city, check_status, check_time, 
+      check_message)
+    values (#{id,jdbcType=INTEGER}, #{processorType,jdbcType=VARCHAR}, #{processorId,jdbcType=VARCHAR}, 
+      #{processorName,jdbcType=VARCHAR}, #{processorPhone,jdbcType=VARCHAR}, #{serveCity,jdbcType=VARCHAR}, 
+      #{peccancyCity,jdbcType=VARCHAR}, #{checkStatus,jdbcType=VARCHAR}, #{checkTime,jdbcType=VARCHAR}, 
+      #{checkMessage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.driver.dao.ProcessInformation" >
+    insert into process_information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="processorType != null" >
+        processor_type,
+      </if>
+      <if test="processorId != null" >
+        processor_id,
+      </if>
+      <if test="processorName != null" >
+        processor_name,
+      </if>
+      <if test="processorPhone != null" >
+        processor_phone,
+      </if>
+      <if test="serveCity != null" >
+        serve_city,
+      </if>
+      <if test="peccancyCity != null" >
+        peccancy_city,
+      </if>
+      <if test="checkStatus != null" >
+        check_status,
+      </if>
+      <if test="checkTime != null" >
+        check_time,
+      </if>
+      <if test="checkMessage != null" >
+        check_message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="processorType != null" >
+        #{processorType,jdbcType=VARCHAR},
+      </if>
+      <if test="processorId != null" >
+        #{processorId,jdbcType=VARCHAR},
+      </if>
+      <if test="processorName != null" >
+        #{processorName,jdbcType=VARCHAR},
+      </if>
+      <if test="processorPhone != null" >
+        #{processorPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="serveCity != null" >
+        #{serveCity,jdbcType=VARCHAR},
+      </if>
+      <if test="peccancyCity != null" >
+        #{peccancyCity,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStatus != null" >
+        #{checkStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="checkMessage != null" >
+        #{checkMessage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.driver.dao.ProcessInformationExample" resultType="java.lang.Integer" >
+    select count(*) from process_information
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update process_information
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.processorType != null" >
+        processor_type = #{record.processorType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processorId != null" >
+        processor_id = #{record.processorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processorName != null" >
+        processor_name = #{record.processorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processorPhone != null" >
+        processor_phone = #{record.processorPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serveCity != null" >
+        serve_city = #{record.serveCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peccancyCity != null" >
+        peccancy_city = #{record.peccancyCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkStatus != null" >
+        check_status = #{record.checkStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkTime != null" >
+        check_time = #{record.checkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkMessage != null" >
+        check_message = #{record.checkMessage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update process_information
+    set id = #{record.id,jdbcType=INTEGER},
+      processor_type = #{record.processorType,jdbcType=VARCHAR},
+      processor_id = #{record.processorId,jdbcType=VARCHAR},
+      processor_name = #{record.processorName,jdbcType=VARCHAR},
+      processor_phone = #{record.processorPhone,jdbcType=VARCHAR},
+      serve_city = #{record.serveCity,jdbcType=VARCHAR},
+      peccancy_city = #{record.peccancyCity,jdbcType=VARCHAR},
+      check_status = #{record.checkStatus,jdbcType=VARCHAR},
+      check_time = #{record.checkTime,jdbcType=VARCHAR},
+      check_message = #{record.checkMessage,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.driver.dao.ProcessInformation" >
+    update process_information
+    <set >
+      <if test="processorType != null" >
+        processor_type = #{processorType,jdbcType=VARCHAR},
+      </if>
+      <if test="processorId != null" >
+        processor_id = #{processorId,jdbcType=VARCHAR},
+      </if>
+      <if test="processorName != null" >
+        processor_name = #{processorName,jdbcType=VARCHAR},
+      </if>
+      <if test="processorPhone != null" >
+        processor_phone = #{processorPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="serveCity != null" >
+        serve_city = #{serveCity,jdbcType=VARCHAR},
+      </if>
+      <if test="peccancyCity != null" >
+        peccancy_city = #{peccancyCity,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStatus != null" >
+        check_status = #{checkStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        check_time = #{checkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="checkMessage != null" >
+        check_message = #{checkMessage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.driver.dao.ProcessInformation" >
+    update process_information
+    set processor_type = #{processorType,jdbcType=VARCHAR},
+      processor_id = #{processorId,jdbcType=VARCHAR},
+      processor_name = #{processorName,jdbcType=VARCHAR},
+      processor_phone = #{processorPhone,jdbcType=VARCHAR},
+      serve_city = #{serveCity,jdbcType=VARCHAR},
+      peccancy_city = #{peccancyCity,jdbcType=VARCHAR},
+      check_status = #{checkStatus,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=VARCHAR},
+      check_message = #{checkMessage,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
